@@ -18,7 +18,7 @@ public class Main {
             IpCounter counter = new IpCounter(bufferedReader);
             long startTime = System.currentTimeMillis();
             System.out.printf("Count of unique addresses: %d\n", counter.countUniqueAddresses());
-            System.out.printf("Time spent: %d", (System.currentTimeMillis() - startTime) / 1000L);
+            System.out.printf("Time spent: %d sec(s)", (System.currentTimeMillis() - startTime) / 1000L);
         } catch (FileNotFoundException e) {
             System.out.printf("File with path %s was not found", pathToFile);
         } catch (IOException e) {
