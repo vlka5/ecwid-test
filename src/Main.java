@@ -1,28 +1,32 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.Duration;
 
 public class Main {
     public static void main(String[] args) {
-        String pathToFile;
-
         if (args.length == 0) {
             System.out.println("File path is not specified");
-            return;
         } else {
-            pathToFile = args[0];
+            countUniqueAddresses(args[0]);
+        }
+    }
+
+    private static void countUniqueAddresses(String pathToFile) {
+        var path = Path.of(pathToFile);
+        var start = System.currentTimeMillis();
+        try (var lines = Files.lines(path)) {
+            var counter = new UniqueIpAddressesCounter(lines);
+            System.out.printf("Answer is %d\n", counter.countUniqueAddresses());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
         }
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(pathToFile)))  {
-            IpCounter counter = new IpCounter(bufferedReader);
-            long startTime = System.currentTimeMillis();
-            System.out.printf("Count of unique addresses: %d\n", counter.countUniqueAddresses());
-            System.out.printf("Time spent: %d sec(s)", (System.currentTimeMillis() - startTime) / 1000L);
-        } catch (FileNotFoundException e) {
-            System.out.printf("File with path %s was not found", pathToFile);
-        } catch (IOException e) {
-            System.out.printf("Something went wrong while processing the file: %s", e.getMessage());
-        }
+        printExecutionTime(start);
+    }
+
+    private static void printExecutionTime(long start) {
+        Duration executionDuration = Duration.ofMillis(System.currentTimeMillis() - start);
+        System.out.printf("Execution time is %d:%d\n", executionDuration.toMinutesPart(), executionDuration.toSecondsPart());
     }
 }

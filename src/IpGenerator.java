@@ -15,7 +15,15 @@ public class IpGenerator {
                 BufferedWriter bufferedWriter = new BufferedWriter(fw)
         ) {
             for (int i = 0; i < count; i++) {
-                bufferedWriter.append(String.valueOf(r.nextInt(256))).append(".").append(String.valueOf(r.nextInt(256))).append(".").append(String.valueOf(r.nextInt(256))).append(".").append(String.valueOf(r.nextInt(256))).append('\n');
+                bufferedWriter
+                        .append(String.valueOf(r.nextInt(256)))
+                        .append(".")
+                        .append(String.valueOf(r.nextInt(256)))
+                        .append(".")
+                        .append(String.valueOf(r.nextInt(256)))
+                        .append(".")
+                        .append(String.valueOf(r.nextInt(256)))
+                        .append('\n');
                 bufferedWriter.flush();
             }
         } catch (IOException e) {
