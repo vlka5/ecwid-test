@@ -31,4 +31,8 @@ public class IpGenerator {
         }
 
     }
+
+    public static void main(String[] args) {
+        generateIpAndWriteToFile("100.txt", 100_000_000);
+    }
 }

@@ -1,17 +1,32 @@
+package counter;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.BitSet;
 import java.util.stream.Stream;
 
-public class UniqueIpAddressesCounter {
+/**
+ * Class for sync execution
+ */
+public class UniqueIpAddressesSyncCounter implements UniqueIpAddressesCounter {
     private final BitSet positive = new BitSet();
     private final BitSet negative = new BitSet();
     private final Stream<String> lines;
 
-    public UniqueIpAddressesCounter(Stream<String> lines) {
-        this.lines = lines;
+    public UniqueIpAddressesSyncCounter(String pathToFile) {
+        Stream<String> lines1;
+        try {
+            lines1 = Files.lines(Path.of(pathToFile));
+        } catch (IOException e) {
+            System.err.println("Exception thrown while trying to open file: " + e.getMessage());
+            lines1 = Stream.empty();
+        }
+        this.lines = lines1;
     }
 
+    @Override
     public long countUniqueAddresses() {
-        System.out.println("Counting started..");
         lines
                 .map(this::getAddressAsInt)
                 .forEach(intAddress -> {
