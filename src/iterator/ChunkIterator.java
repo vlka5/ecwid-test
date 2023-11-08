@@ -23,7 +23,7 @@ public class ChunkIterator implements Iterator<ByteBuffer> {
         }
         this.fileChannel = fileChannel;
         this.lastEnd = 0;
-        this.chunkSize = 2 << 22;
+        this.chunkSize = 1 << 22;
     }
 
     @Override
