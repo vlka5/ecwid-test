@@ -23,9 +23,7 @@ public class ChunkIterator implements Iterator<ByteBuffer> {
         }
         this.fileChannel = fileChannel;
         this.lastEnd = 0;
-        this.chunkSize = Math.min(
-                this.size / Runtime.getRuntime().availableProcessors(),
-                Integer.MAX_VALUE >>> Runtime.getRuntime().availableProcessors());
+        this.chunkSize = 2 << 22;
     }
 
     @Override
